@@ -12,15 +12,22 @@ generator client {
 }
 
 model User {
-  id    String  @id @default(uuid()) @map("_id")
-  email String? @unique
-  nome  String?
-  tel   String? @unique
-  cpf   String? @unique
+  id       String     @id @default(uuid()) @map("_id")
+  email    String?    @unique
+  nome     String?
+  tel      String?    @unique
+  cpf      String?    @unique
+  payments Payments[]
 
   @@map("users")
 }
 
-model Checkout {
-  id String @id @default(uuid()) @map("_id")
+model Payments {
+  id     String   @id @default(uuid()) @map("_id")
+  userId String
+  user   User     @relation(fields: [userId], references: [id])
+  value  Float
+  date   DateTime @default(now())
+
+  @@map("payments")
 }
