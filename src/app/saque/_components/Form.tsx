@@ -72,9 +72,10 @@ export default function Form() {
           throw new Error('Erro na requisição');
         }
 
-        alert('Saque realizado com sucesso!');
+        router.push('/success');
+
       } catch (error) {
-        router.push('/error');
+        alert('Essa chave pix já recebeu o valor!')
       }
     } else {
       alert(`Por favor, insira um ${selection === 'cpf' ? 'CPF válido' : 'celular válido'}`);
