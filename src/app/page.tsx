@@ -12,15 +12,18 @@ export default function Home() {
             <h3 className='opacity-0 mb-6 sm:mb-8 font-bold text-center text-xl sm:text-2xl translate-x-[-50px] translate-x-[-50px] animate-delay-200 animate-delay-700 animate-fade-in-left animate-fade-in-left animate-duration-1000 animate-duration-1000'>
               Seja Bem Vindo (a)
             </h3>
-            <div className='bg-white opacity-0 px-6 sm:px-10 pt-8 sm:pt-12 pb-6 rounded-3xl w-full max-w-[400px] text-[#0BD11A] translate-x-[-50px] animate-delay-500 animate-fade-in-left animate-duration-1000'>
+            <div className='bg-white opacity-0 px-6 sm:px-10 pt-8 sm:pt-14 pb-6 rounded-3xl w-full max-w-[400px] text-[#0BD11A] translate-x-[-50px] animate-delay-500 animate-fade-in-left animate-duration-1000'>
               <p className='font-bold text-center text-xl sm:text-[1.70rem] leading-7 translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
                 Ganhe até R$ 200 p/dia <br /> por dar Feedbacks para empresas!
               </p>
-              <p className='opacity-0 my-4 sm:my-6 text-center text-gray-500 text-sm sm:text-base translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
+              <p className='opacity-0 my-3 sm:my-6 text-center text-gray-500 text-sm sm:text-base translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
                 <span className='underline'>Clique no Botão Abaixo</span> e faça seu cadastro para começar.
               </p>
+              <div className='flex justify-center items-center mx-auto w-full'>
+                <img src="/arrow.png" width={38} alt="arrow" />
+              </div>
               <Link href={'/cadastro'}>
-                <button className='bg-[#2AD10A] shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.7),inset_2px_2px_4px_rgba(255,255,255,0.1)] px-4 sm:px-6 py-2 sm:py-3 rounded-sm w-full text-white text-xl sm:text-2xl transition-all animate-pulse hover:animate-none duration-300 active:scale-100 ease-in-out hover:scale-105'>
+                <button className='bg-[#2AD10A] shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.7),inset_2px_2px_4px_rgba(255,255,255,0.1)] mt-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md w-full text-white text-xl sm:text-2xl transition-all animate-pulse hover:animate-none duration-300 hover:scale-105 active:scale-100 ease-in-out'>
                   Fazer Cadastro Agora
                 </button>
               </Link>
