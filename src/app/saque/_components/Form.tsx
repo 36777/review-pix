@@ -19,27 +19,31 @@ export default function Form() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/realizar-saque', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          tipo: selection,
-          valor: inputValue,
-        }),
-      });
+    if (inputValue !== '') {
+      try {
+        const response = await fetch('/api/realizar-saque', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            tipo: selection,
+            valor: inputValue,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Erro na requisição');
+        if (!response.ok) {
+          throw new Error('Erro na requisição');
+        }
+
+        alert('Saque realizado com sucesso!');
+      } catch (error) {
+        router.push('/error');
       }
-
-      alert('Saque realizado com sucesso!');
-    } catch (error) {
-      router.push('/error');
+    } else {
+      alert('Informe seu ' + selection)
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4 text-white">
@@ -77,7 +81,8 @@ export default function Form() {
       {selection !== '' && (
         <div className="border-primary mt-4 mb-16 p-4 border rounded-2xl w-full">
           <input
-            className="border-gray-500 px-4 py-2 border w-full placeholder:text-gray-400"
+            required
+            className="placeholder:relative placeholder:top-[2px] border-gray-500 px-4 py-2 border w-full placeholder:text-gray-400"
             type="text"
             placeholder={`Digite seu ${selection === 'cpf' ? 'CPF' : 'Celular'}`}
             value={inputValue}
