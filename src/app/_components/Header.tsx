@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 export default function Header() {
@@ -29,12 +30,14 @@ export default function Header() {
     <div>
       <header className="relative flex bg-white">
         <div className="relative flex justify-between px-4 md:px-[3.12rem] py-5 w-full">
-          <img
-            className="relative top-[-3px] z-10 w-[150px] h-fit"
-            src="/logo.png"
-            alt="logo"
-            fetchPriority="high"
-          />
+          <Link href={'/'}>
+            <img
+              className="relative top-[-3px] z-10 w-[150px] h-fit"
+              src="/logo.png"
+              alt="logo"
+              fetchPriority="high"
+            />
+          </Link>
 
           <div className="relative top-[-5px] right-8 z-[999] flex justify-center items-center">
             <button className="relative flex justify-center items-center border-white bg-primary px-4 py-[0.35rem] border rounded-full text-white">
