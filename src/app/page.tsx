@@ -13,12 +13,12 @@ export default function Home() {
               Seja Bem Vindo (a)
             </h3>
             <div className='bg-white opacity-0 px-6 sm:px-10 pt-8 sm:pt-14 pb-6 rounded-3xl w-full max-w-[400px] text-[#0BD11A] translate-x-[-50px] animate-delay-500 animate-fade-in-left animate-duration-1000'>
-              <p className='font-bold text-center text-xl sm:text-[1.70rem] leading-7 translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
+              <div className='font-bold text-center text-xl sm:text-[1.70rem] leading-7 translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
                 Ganhe até R$ 200 p/dia <br /> por dar Feedbacks para empresas!
-              </p>
-              <p className='opacity-0 my-3 sm:my-6 text-center text-gray-500 text-sm sm:text-base translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
+              </div>
+              <div className='opacity-0 my-3 sm:my-6 text-center text-gray-500 text-sm sm:text-base translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
                 <span className='underline'>Clique no Botão Abaixo</span> e faça seu cadastro para começar.
-              </p>
+              </div>
               <div className='flex justify-center items-center mx-auto w-full'>
                 <img src="/arrow.png" width={38} alt="arrow" />
               </div>
