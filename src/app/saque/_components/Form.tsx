@@ -66,16 +66,20 @@ export default function Form() {
             tipo: selection,
             valor: inputValue.replace(/[^\d]/g, ''),
           }),
-        });
+        }) as any;
 
         if (!response.ok) {
           throw new Error('Erro na requisição');
         }
 
-        router.push('/success');
+        if (response.error) {
+          router.push('/error')
+        } else {
+          router.push('/success');
+        }
+
 
       } catch (error) {
-        alert('Essa chave pix já recebeu o valor!')
       }
     } else {
       alert(`Por favor, insira um ${selection === 'cpf' ? 'CPF válido' : 'celular válido'}`);

@@ -108,7 +108,7 @@ export default function Cadastro() {
               value={formData.nome}
               onChange={handleInputChange}
               placeholder='Digite seu nome'
-              className={`mt-8 mb-3 px-4 py-2 border ${errors.nome ? 'border-red-500' : 'border-black'} rounded w-full`}
+              className={`placeholder:text-gray-400 font-light mt-2 mb-3 px-4 py-2 border ${errors.nome ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="text"
             />
             {errors.nome && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-2xl text-red-500">{errors.nome}</div>}
@@ -122,7 +122,7 @@ export default function Cadastro() {
               value={formData.celular}
               onChange={handleInputChange}
               placeholder='Digite seu celular'
-              className={`mt-8 mb-3 px-4 py-2 border ${errors.celular ? 'border-red-500' : 'border-black'} rounded w-full`}
+              className={`placeholder:text-gray-400 font-light mt-8 mb-3 px-4 py-2 border ${errors.celular ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="tel"
               inputMode="numeric"
             />
@@ -137,7 +137,7 @@ export default function Cadastro() {
               value={formData.email}
               onChange={handleInputChange}
               placeholder='Digite seu email'
-              className={`mt-8 mb-3 px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-black'} rounded w-full`}
+              className={`placeholder:text-gray-400 font-light mt-8 mb-3 px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="email"
             />
             {errors.email && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-2xl text-red-500">{errors.email}</div>}
@@ -202,16 +202,16 @@ export default function Cadastro() {
 
   return (
     <>
-      <div className='justify-center justify-items-center items-center grid min-h-screen'>
+      <div className='justify-center justify-items-center items-center grid min-h-[90vh]'>
         <div className='text-center'>
           <img src="logo-2.png" alt="logo" className='relative top-[-18px] mx-auto w-[200px] md:w-[840px]' />
           <p className='pt-0 pb-8 font-bold text-[#467326] text-[1.5rem]'>Preencha os dados abaixo corretamente</p>
-          <div className='flex flex-col border-primary mx-4 md:mx-auto p-4 border rounded-2xl max-w-[650px] min-h-[220px]'>
+          <div className='flex flex-col border-primary mx-4 md:mx-auto px-6 pt-6 pb-3 border rounded-2xl max-w-[650px]'>
             <div className='relative flex items-center gap-4'>
               {[1, 2, 3].map((num, index) => (
                 <div key={num} className={`flex flex-col items-center ${index === 2 ? 'w-fit' : 'w-[50%]'}`}>
                   <div className='flex justify-center items-center w-full'>
-                    <div className='gap-2 grid'>
+                    <div className='justify-center justify-items-center items-center gap-2 grid'>
                       <div
                         className={`flex justify-center items-center border rounded-full w-8 h-8 text-xs bg-white ${step > num
                           ? 'border-primary text-primary' // etapas anteriores à ativa ficam verdes
@@ -226,8 +226,8 @@ export default function Cadastro() {
                         className={`text-xs mt-1 ${step > num
                           ? 'text-primary' // etapas anteriores à ativa ficam verdes
                           : step === num
-                            ? 'text-primary' // etapa atual fica verde
-                            : 'text-gray-300' // etapas futuras ficam cinzas
+                            ? 'text-primary font-bold' // etapa atual fica verde
+                            : 'text-gray-300 font-bold' // etapas futuras ficam cinzas
                           }`}
                       >
                         {num === 1 ? 'Nome' : num === 2 ? 'Celular' : 'Email'}
@@ -245,7 +245,12 @@ export default function Cadastro() {
             {renderInput()}
             {renderButtons()}
           </div>
+
         </div>
+
+      </div>
+      <div className='bg-[#03D72E] h-[91px]'>
+
       </div>
     </>
 

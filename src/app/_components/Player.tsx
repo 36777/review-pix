@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Play, Repeat } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function Player() {
+export default function Player({ src, link }: { src: string; link: string }) {
   const [isPaused, setIsPaused] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
   const [hasWatched, setHasWatched] = useState(false);
@@ -58,7 +58,7 @@ export default function Player() {
   };
 
   const handlePay = () => {
-    router.push('/pay');
+    router.push(link);
   };
 
   return (
@@ -73,7 +73,7 @@ export default function Player() {
           disablePictureInPicture
           controlsList="nodownload noplaybackrate"
         >
-          <source src="/vsl.mp4" type="video/mp4" />
+          <source src={src} type="video/mp4" />
           Seu navegador não suporta a tag de vídeo.
         </video>
 
