@@ -34,15 +34,15 @@ export default function Saque() {
         <Header />
         <div className=''>
           <h1 className='mt-[60px] font-bold text-[#4FC600] text-[2rem] text-center'>ATENÇÃO</h1>
-          <div className='flex justify-center items-center mt-2 text-2xl'>
-            <p className='relative top-[-8px] flex bg-primary mx-4 mt-2 px-4 py-2 rounded-xl w-fit max-w-[1000px] font-bold text-2xl text-center text-white fade-in-up'>
+          <div className='flex justify-center items-center mt-2 md:text-2xl'>
+            <p className='relative top-[-8px] flex bg-primary mx-4 mt-2 px-4 py-2 rounded-xl w-fit max-w-[1000px] font-bold text-center text-white fade-in-up'>
               Antes de realizar seu 1° saque, vamos te enviar um PIX TESTE de R$0,05 CENTAVOS para confirmar se está tudo certo com o seu cadastro!
             </p>
           </div>
 
         </div>
         <div className='flex justify-center items-center mx-auto w-full'>
-          <div className='flex flex-col border-2 border-primary mx-4 mx-auto mt-3 p-5 rounded-2xl md:w-[800px] min-h-[400px]'>
+          <div className='flex flex-col border-2 border-primary mx-4 md:mx-auto mt-3 p-5 rounded-2xl md:w-[800px] min-h-[400px]'>
             <p className='font-bold text-2xl text-primary'>Seu Saldo:</p>
             <p className='mt-[-2px] font-bold text-[2.10rem] text-primary'>R$ {balance}</p>
             <p className='my-5 font-light text-[15px]'>Escolha o tipo da sua chave Pix para realizar o saque:</p>
