@@ -46,7 +46,7 @@ export default function Form() {
       <div className='flex gap-4'>
         {/* Opção CPF */}
         <div
-          className={`flex flex-col justify-center items-center border-2 ${selection === 'cpf' ? 'border-primary' : 'border-gray-300'} hover:bg-[#148305] ${selection === 'cpf' ? 'bg-[#148305]' : 'bg-primary'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
+          className={`flex flex-col justify-center items-center border-2 ${selection === 'cpf' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'cpf' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
           onClick={() => handleSelectionChange('cpf')}
         >
           <div>Icon</div>
@@ -55,7 +55,7 @@ export default function Form() {
 
         {/* Opção Celular */}
         <div
-          className={`flex flex-col justify-center items-center border-2 ${selection === 'celular' ? 'border-primary' : 'border-gray-300'} hover:bg-[#148305] ${selection === 'celular' ? 'bg-[#148305]' : 'bg-primary'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
+          className={`flex flex-col justify-center items-center border-2 ${selection === 'celular' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'celular' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
           onClick={() => handleSelectionChange('celular')}
         >
           <div>Icon</div>

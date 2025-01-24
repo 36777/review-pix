@@ -35,10 +35,11 @@ export default function Saque() {
         <div className=''>
           <h1 className='mt-[60px] font-bold text-[#4FC600] text-[2rem] text-center'>ATENÇÃO</h1>
           <div className='flex justify-center items-center mt-2 text-2xl'>
-            <p className='relative top-[-8px] flex bg-primary mx-4 mt-2 px-4 py-2 rounded-xl w-fit max-w-[1000px] font-bold text-2xl text-center text-white'>
+            <p className='relative top-[-8px] flex bg-primary mx-4 mt-2 px-4 py-2 rounded-xl w-fit max-w-[1000px] font-bold text-2xl text-center text-white fade-in-up'>
               Antes de realizar seu 1° saque, vamos te enviar um PIX TESTE de R$0,05 CENTAVOS para confirmar se está tudo certo com o seu cadastro!
             </p>
           </div>
+
         </div>
         <div className='flex justify-center items-center mx-auto w-full'>
           <div className='flex flex-col border-2 border-primary mx-4 mx-auto mt-3 p-5 rounded-2xl md:w-[800px] min-h-[400px]'>
