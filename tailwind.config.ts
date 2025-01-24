@@ -14,6 +14,21 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      animation: {
+        'fade-in-left': 'fadeInLeft 1s ease-out forwards',
+      },
+      keyframes: {
+        fadeInLeft: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(-150px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+      },
     },
   },
   plugins: [],
