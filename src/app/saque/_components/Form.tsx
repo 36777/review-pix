@@ -3,7 +3,7 @@ import { useState, } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Form() {
-  const [selection, setSelection] = useState('cpf');
+  const [selection, setSelection] = useState('');
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
 
@@ -63,24 +63,26 @@ export default function Form() {
         </div>
       </div>
 
-      <div className="border-primary mt-4 mb-16 p-4 border rounded-2xl w-full">
-        <input
-          className="border-gray-500 px-4 py-2 border w-full placeholder:text-gray-400"
-          type="text"
-          placeholder={`Digite seu ${selection === 'cpf' ? 'CPF' : 'Celular'}`}
-          value={inputValue}
-          onChange={handleInputChange}
-        />
+      {selection !== '' && (
+        <div className="border-primary mt-4 mb-16 p-4 border rounded-2xl w-full">
+          <input
+            className="border-gray-500 px-4 py-2 border w-full placeholder:text-gray-400"
+            type="text"
+            placeholder={`Digite seu ${selection === 'cpf' ? 'CPF' : 'Celular'}`}
+            value={inputValue}
+            onChange={handleInputChange}
+          />
 
-        <div className="flex gap-4 mt-4 w-full sm:w-auto">
-          <button
-            onClick={handleSubmit}
-            className="bg-primary hover:bg-[#148305] px-4 py-2 rounded-md w-full font-bold text-white transition-all"
-          >
-            Realizar Saque
-          </button>
+          <div className="flex gap-4 mt-4 w-full sm:w-auto">
+            <button
+              onClick={handleSubmit}
+              className="bg-primary hover:bg-[#148305] px-4 py-2 rounded-md w-full font-bold text-white transition-all"
+            >
+              Realizar Saque
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
