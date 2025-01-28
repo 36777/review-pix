@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { endpoints } from '../utils/endpoints'
 
 export default function Cadastro() {
   const router = useRouter()
@@ -95,7 +96,7 @@ export default function Cadastro() {
         celular: formData.celular.replace(/\D/g, '')
       };
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cadastro`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${endpoints.cadastro}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -106,12 +107,14 @@ export default function Cadastro() {
       if (response.ok) {
         router.push('/avaliacao');
       } else {
-        alert('Ocorreu um erro ao tentar realizar o cadastro!');
+        const errorData = await response.json();
+        alert(errorData?.error || 'Erro desconhecido');
       }
     } catch (error) {
       console.error('Erro no cadastro:', error);
     }
   };
+
 
   const renderInput = () => {
     switch (step) {

@@ -1,6 +1,7 @@
 'use client'
 import { useState, } from 'react';
 import { useRouter } from 'next/navigation';
+import { endpoints } from '@/app/utils/endpoints';
 
 export default function Form() {
   const [selection, setSelection] = useState('');
@@ -57,7 +58,7 @@ export default function Form() {
 
     if (inputValue !== '' && (isValidCPF || isValidPhone)) {
       try {
-        const response = await fetch('/api/realizar-saque', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${endpoints.saque}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -67,6 +68,14 @@ export default function Form() {
             valor: inputValue.replace(/[^\d]/g, ''),
           }),
         }) as any;
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData?.error || 'Erro desconhecido');
+        }
+
+        const data = await response.json(); // Correctly parse the response as JSON
+
 
         if (!response.ok) {
           throw new Error('Erro na requisição');
