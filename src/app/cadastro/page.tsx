@@ -31,45 +31,52 @@ export default function Cadastro() {
   }
 
   const handleInputChange = (e: any) => {
-    const { name, value } = e.target
-    const formattedValue = name === 'celular'
-      ? formatPhoneNumber(value)
-      : value
+    const { name, value } = e.target;
+
+    const formattedValue =
+      name === 'celular'
+        ? formatPhoneNumber(value)
+        : name === 'nome'
+          ? value.replace(/\d/g, '')
+          : value;
 
     setFormData(prev => ({
       ...prev,
-      [name]: formattedValue
-    }))
-  }
+      [name]: formattedValue,
+    }));
+  };
 
   const validateStep = () => {
-    let isValid = true
-    let newErrors = { nome: '', celular: '', email: '' }
+    let isValid = true;
+    let newErrors = { nome: '', celular: '', email: '' };
 
     if (step === 1 && !formData.nome) {
-      newErrors.nome = 'Digite um nome válido'
-      isValid = false
+      newErrors.nome = 'Digite um nome válido';
+      isValid = false;
     }
 
     if (step === 2 && !formData.celular) {
-      newErrors.celular = 'Celular é obrigatório'
-      isValid = false
-    } else if (step === 2 && !/^\(\d{2}\) \d{4,5}-\d{4}$/.test(formData.celular)) {
-      newErrors.celular = 'Digite um celular válido'
-      isValid = false
+      newErrors.celular = 'Celular é obrigatório';
+      isValid = false;
+    } else if (
+      step === 2 &&
+      !/^\(\d{2}\) \d{5}-\d{4}$/.test(formData.celular)
+    ) {
+      newErrors.celular = 'Digite um celular válido no formato (99) 99999-9999';
+      isValid = false;
     }
 
     if (step === 3 && !formData.email) {
-      newErrors.email = 'Email é obrigatório'
-      isValid = false
+      newErrors.email = 'Email é obrigatório';
+      isValid = false;
     } else if (step === 3 && !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Digite um Email válido'
-      isValid = false
+      newErrors.email = 'Digite um Email válido';
+      isValid = false;
     }
 
-    setErrors(newErrors)
-    return isValid
-  }
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleNextStep = () => {
     if (validateStep() && step < 3) setStep(prev => prev + 1)
@@ -80,23 +87,31 @@ export default function Cadastro() {
   }
 
   const handleSubmit = async () => {
-    if (!validateStep()) return
+    if (!validateStep()) return;
+
     try {
-      const response = await fetch('/api/cadastro', {
+      const payload = {
+        ...formData,
+        celular: formData.celular.replace(/\D/g, '')
+      };
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cadastro`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
-      })
+        body: JSON.stringify(payload)
+      });
 
       if (response.ok) {
-        router.push('/avaliacao')
+        router.push('/avaliacao');
+      } else {
+        alert('Ocorreu um erro ao tentar realizar o cadastro!');
       }
     } catch (error) {
-      console.error('Erro no cadastro:', error)
+      console.error('Erro no cadastro:', error);
     }
-  }
+  };
 
   const renderInput = () => {
     switch (step) {
@@ -121,7 +136,7 @@ export default function Cadastro() {
               name="celular"
               value={formData.celular}
               onChange={handleInputChange}
-              placeholder='Digite seu celular'
+              placeholder='Digite o DDD + Seu Número'
               className={`placeholder:text-gray-400 font-light mt-8 mb-3 px-4 py-2 border ${errors.celular ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="tel"
               inputMode="numeric"
@@ -214,20 +229,20 @@ export default function Cadastro() {
                     <div className='justify-center justify-items-center items-center gap-2 grid'>
                       <div
                         className={`flex justify-center items-center border rounded-full w-8 h-8 text-xs bg-white ${step > num
-                          ? 'border-primary text-primary' // etapas anteriores à ativa ficam verdes
+                          ? 'border-primary text-primary'
                           : step === num
-                            ? 'border-primary text-primary' // etapa atual fica verde
-                            : 'border-gray-300 text-gray-300' // etapas futuras ficam cinzas
+                            ? 'border-primary text-primary'
+                            : 'border-gray-300 text-gray-300'
                           }`}
                       >
                         {num}
                       </div>
                       <p
                         className={`text-xs mt-1 ${step > num
-                          ? 'text-primary' // etapas anteriores à ativa ficam verdes
+                          ? 'text-primary'
                           : step === num
-                            ? 'text-primary font-bold' // etapa atual fica verde
-                            : 'text-gray-300 font-bold' // etapas futuras ficam cinzas
+                            ? 'text-primary font-bold'
+                            : 'text-gray-300 font-bold'
                           }`}
                       >
                         {num === 1 ? 'Nome' : num === 2 ? 'Celular' : 'Email'}
