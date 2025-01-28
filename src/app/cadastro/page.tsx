@@ -108,7 +108,12 @@ export default function Cadastro() {
         router.push('/avaliacao');
       } else {
         const errorData = await response.json();
-        alert(errorData?.error || 'Erro desconhecido');
+        if (errorData?.error === 'Email já cadastrado.') {
+          router.push('/error')
+        } else {
+          alert(errorData?.error || 'Erro desconhecido');
+        }
+
       }
     } catch (error) {
       console.error('Erro no cadastro:', error);
