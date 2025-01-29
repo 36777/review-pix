@@ -91,8 +91,12 @@ export default function Cadastro() {
     if (!validateStep()) return;
 
     try {
+      // Remove formatting before submitting
+      const unformattedPhoneNumber = formData.celular.replace(/\D/g, '');
+
       const payload = {
         ...formData,
+        celular: unformattedPhoneNumber // Use raw phone number
       };
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${endpoints.cadastro}`, {
@@ -112,13 +116,11 @@ export default function Cadastro() {
         } else {
           alert(errorData?.error || 'Erro desconhecido');
         }
-
       }
     } catch (error) {
       console.error('Erro no cadastro:', error);
     }
   };
-
 
   const renderInput = () => {
     switch (step) {
