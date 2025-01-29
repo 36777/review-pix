@@ -63,7 +63,7 @@ export default function Cadastro() {
       step === 2 &&
       !/^\(\d{2}\) \d{5}-\d{4}$/.test(formData.celular)
     ) {
-      newErrors.celular = 'Digite um celular válido no formato (99) 99999-9999';
+      newErrors.celular = 'Digite um celular válido';
       isValid = false;
     }
 
@@ -132,10 +132,10 @@ export default function Cadastro() {
               value={formData.nome}
               onChange={handleInputChange}
               placeholder='Digite seu nome'
-              className={`placeholder:text-gray-400 font-light mt-2 mb-3 px-4 py-2 border ${errors.nome ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
+              className={`border-gray-500 text-gray-500 border outline-none placeholder:text-gray-400 font-light mt-2 mb-3 px-4 py-2 ${errors.nome ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="text"
             />
-            {errors.nome && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-2xl text-red-500">{errors.nome}</div>}
+            {errors.nome && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-red-500 md:text-2xl">{errors.nome}</div>}
           </>
         )
       case 2:
@@ -146,11 +146,11 @@ export default function Cadastro() {
               value={formData.celular}
               onChange={handleInputChange}
               placeholder='Digite o DDD + Seu Número'
-              className={`placeholder:text-gray-400 font-light mt-8 mb-3 px-4 py-2 border ${errors.celular ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
+              className={`border-gray-500 text-gray-500 border outline-none placeholder:text-gray-400 font-light mt-2 mb-3 px-4 py-2  ${errors.celular ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="tel"
               inputMode="numeric"
             />
-            {errors.celular && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-2xl text-red-500">{errors.celular}</div>}
+            {errors.celular && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-red-500 text-xl md:text-2xl">{errors.celular}</div>}
           </>
         )
       case 3:
@@ -161,10 +161,10 @@ export default function Cadastro() {
               value={formData.email}
               onChange={handleInputChange}
               placeholder='Digite seu email'
-              className={`placeholder:text-gray-400 font-light mt-8 mb-3 px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
+              className={`border-gray-500 text-gray-500 border outline-none placeholder:text-gray-400 font-light mt-2 mb-3 px-4 py-2 ${errors.email ? 'border-red-500' : 'border-gray-500'} rounded w-full`}
               type="email"
             />
-            {errors.email && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-2xl text-red-500">{errors.email}</div>}
+            {errors.email && <div className="relative top-[-6px] flex justify-start items-center px-4 border border-red-500 w-fit h-[80px] text-red-500 text-xl md:text-2xl">{errors.email}</div>}
           </>
         )
     }
@@ -178,7 +178,7 @@ export default function Cadastro() {
           onClick={handleNextStep}
           className='bg-primary hover:opacity-85 mb-2 px-4 py-2 rounded-full w-full font-bold text-sm text-white'
         >
-          Próximo
+          Continuar
         </button>
       )
     }
@@ -189,9 +189,9 @@ export default function Cadastro() {
           <button
             type="button"
             onClick={handlePreviousStep}
-            className='bg-gray-300 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-black text-sm'
+            className='bg-primary hover:bg-primary-dark mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
           >
-            Voltar
+            Anterior
           </button>
           <button
             type="button"
@@ -209,7 +209,7 @@ export default function Cadastro() {
         <button
           type="button"
           onClick={handlePreviousStep}
-          className='bg-gray-300 hover:opacity-85 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-black text-sm'
+          className='bg-primary hover:bg-primary-dark hover:opacity-85 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
         >
           Anterior
         </button>
@@ -218,7 +218,7 @@ export default function Cadastro() {
           onClick={handleNextStep}
           className='bg-primary hover:bg-primary-dark hover:opacity-85 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
         >
-          Próximo
+          Continuar
         </button>
       </div>
     )
@@ -248,7 +248,7 @@ export default function Cadastro() {
                       </div>
                       <p
                         className={`text-xs mt-1 ${step > num
-                          ? 'text-primary'
+                          ? 'text-white'
                           : step === num
                             ? 'text-primary font-bold'
                             : 'text-gray-300 font-bold'
@@ -259,7 +259,7 @@ export default function Cadastro() {
                     </div>
                     {/* Linha de separação entre os círculos */}
                     {index !== 2 && (
-                      <div className={`${index < 2 ? 'w-full' : '0'} ml-4 relative top-[-15px] bg-gray-300 h-0.5`} ></div>
+                      <div className={`${index < 2 ? 'w-full' : '0'} ml-4 relative top-[-15px] bg-gray-300 h-[1px]`} ></div>
                     )}
                   </div>
                 </div>

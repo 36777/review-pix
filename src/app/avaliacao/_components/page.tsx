@@ -46,7 +46,7 @@ export default function Review({
             >
               <polygon
                 points="12 17.27 18.18 21 15.54 13.97 21 9.24 13.81 8.63 12 2 10.19 8.63 3 9.24 8.46 13.97 5.82 21 12 17.27"
-                className={`${isHovered >= index || currentSelectedIndex >= index
+                className={`${isHovered >= index || currentSelectedIndex >= index + 1
                   ? 'fill-primary stroke-primary'
                   : 'fill-[#DDDDDD] stroke-gray-500'
                   }`}

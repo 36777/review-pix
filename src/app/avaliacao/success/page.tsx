@@ -1,3 +1,4 @@
+import BottomNav from '@/app/_components/BottomNav';
 import Link from 'next/link';
 
 export default function SuccessAv() {
@@ -18,6 +19,7 @@ export default function SuccessAv() {
           <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>ASSISTIR VÍDEO</button>
         </Link>
       </div>
+      <BottomNav />
     </div>
   )
 }

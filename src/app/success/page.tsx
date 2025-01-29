@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BottomNav from '../_components/BottomNav';
 
 export default function Success() {
   return (
@@ -22,6 +23,7 @@ export default function Success() {
           <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>CONTINUAR</button>
         </Link>
       </div>
+      <BottomNav />
     </div>
   )
 }

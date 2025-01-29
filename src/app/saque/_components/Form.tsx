@@ -100,7 +100,7 @@ export default function Form() {
       <div className='flex gap-4'>
         {/* Opção CPF */}
         <div
-          className={`flex flex-col md:flex-row gap-4 justify-center items-center border-2 ${selection === 'cpf' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'cpf' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
+          className={`flex flex-col md:flex-row gap-4 justify-center items-center ${selection === 'cpf' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'cpf' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
           onClick={() => handleSelectionChange('cpf')}
         >
           <div>
@@ -113,7 +113,7 @@ export default function Form() {
 
         {/* Opção Celular */}
         <div
-          className={`md:flex-row gap-4 flex flex-col justify-center items-center border-2 ${selection === 'celular' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'celular' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
+          className={`md:flex-row gap-4 flex flex-col justify-center items-center ${selection === 'celular' ? 'border-primary' : 'border-gray-300'} hover:bg-primary ${selection === 'celular' ? 'bg-primary' : 'bg-[#148305]'} p-4 rounded-xl w-full sm:w-[48%] min-h-[140px] transition-all hover:scale-105 cursor-pointer`}
           onClick={() => handleSelectionChange('celular')}
         >
           <div>
@@ -131,7 +131,7 @@ export default function Form() {
             required
             inputMode="numeric"
             pattern="[0-9]*"
-            className="placeholder:relative placeholder:top-[2px] border-gray-500 px-4 py-2 border w-full text-black placeholder:text-gray-400"
+            className="placeholder:relative placeholder:top-[2px] border-gray-500 px-4 py-2 border w-full text-black placeholder:text-gray-400 outline-none"
             type="tel"
             placeholder={`Digite seu ${selection === 'cpf' ? 'CPF' : 'Celular'}`}
             value={inputValue}

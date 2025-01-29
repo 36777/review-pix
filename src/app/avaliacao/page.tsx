@@ -128,8 +128,8 @@ export default function Avaliacao() {
         <Header />
         <div className='justify-center items-center gap-4 grid mt-14'>
           <div className='flex justify-center items-center gap-4'>
-            <h3 className='mb-5 font-bold text-[1.7rem] text-primary'>
-              {timeout ? 'Estabelecimento Encontrado' : 'Procurando estabelecimento'}
+            <h3 className='mb-5 font-bold text-primary text-xl md:text-[1.7rem]'>
+              {timeout ? 'Estabelecimento Encontrado' : 'Procurando Estabelecimento'}
             </h3>
           </div>
           {images.length > 0 && (
@@ -173,7 +173,7 @@ export default function Avaliacao() {
               onClick={handleEvaluation}
               className={`hover:scale-110 text-2xl mb-[50px] max-sm:mb-[20px] p-4 max-sm:p-3 rounded-md md:w-full w-[80%] text-white transition-all ${isPostButtonEnabled ? 'bg-primary' : 'bg-[#A7E27F] cursor-not-allowed'}`}
             >
-              POSTAR FEEDBACK
+              Postar Feedback
             </button>
           </div>
         </div>
