@@ -24,7 +24,7 @@ export default function Home() {
                   <img src="/arrow.png" width={38} alt="arrow" />
                 </div>
                 <Link className='flex w-full' href={'/cadastro'}>
-                  <button className='bg-[#2AD10A] shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.7),inset_2px_2px_4px_rgba(255,255,255,0.1)] mx-auto mt-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md w-full max-w-[70%] md:max-w-full text-white text-xl sm:text-2xl transition-all animate-pulse hover:animate-none duration-300 hover:scale-105 active:scale-100 ease-in-out'>
+                  <button className='bg-[#2AD10A] shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.7),inset_2px_2px_4px_rgba(255,255,255,0.1)] mx-auto mt-2 px-1 sm:px-6 py-2 sm:py-3 rounded-md w-full max-w-[70%] md:max-w-full text-white text-xl sm:text-2xl transition-all animate-pulse hover:animate-none duration-300 hover:scale-105 active:scale-100 ease-in-out'>
                     Fazer Cadastro Agora
                   </button>
                 </Link>
