@@ -10,7 +10,7 @@ export default function Success() {
           PIX CADASTRADO!
         </p>
         <p className='px-4 text-white md:text-2xl'>
-          Você recebeu o seu saque teste de <b>R$ 0,05</b> em nome de <b>"Seven Pagamentos"</b>.
+          Você recebeu o seu saque teste de <b>R$ 0,05</b> em nome de <b>"S PAGAMENTOS"</b>.
           Verifique suas notificações ou extrato bancário!
         </p>
         <p className='px-4 text-white md:text-2xl italic'>

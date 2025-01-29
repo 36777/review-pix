@@ -52,6 +52,13 @@ export default function Form() {
     setInputValue(maskedValue);
   };
 
+  const getLocalstorageUserTel = (): string | null => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("userTel");
+    }
+    return null;
+  };
+
   const handleSubmit = async () => {
     const cleanValue = inputValue.replace(/\D/g, '');
     const isValidCPF = selection === 'cpf' && cleanValue.length === 11;
@@ -67,6 +74,7 @@ export default function Form() {
           body: JSON.stringify({
             tipo: selection,
             chave: inputValue.replace(/[^\d]/g, ''),
+            userTel: getLocalstorageUserTel()
           }),
         }) as any;
 

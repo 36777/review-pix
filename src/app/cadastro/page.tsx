@@ -108,6 +108,8 @@ export default function Cadastro() {
       });
 
       if (response.ok) {
+        localStorage.setItem("userTel", unformattedPhoneNumber);
+
         router.push('/avaliacao');
       } else {
         const errorData = await response.json();

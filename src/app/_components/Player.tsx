@@ -3,22 +3,62 @@ import { useState, useRef, useEffect } from 'react';
 import { Play, Repeat } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function Player({ src, link }: { src: string; link: string }) {
+export default function Player({
+  src,
+  link,
+  btnLabel,
+  btnIcon,
+  moldura,
+  btnW,
+  showBtn,
+  store
+}: {
+  src: string;
+  link: string;
+  btnLabel: string;
+  btnIcon?: string;
+  moldura?: boolean;
+  btnW: string;
+  showBtn: string;
+  store: string;
+}) {
   const [isPaused, setIsPaused] = useState(true);
-  const [isEnded, setIsEnded] = useState(false);
-  const [hasWatched, setHasWatched] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
 
+  // Convert timestamp string (MM:SS) to seconds
+  const getTimeInSeconds = (timestamp: string) => {
+    const [minutes, seconds] = timestamp.split(':').map(Number);
+    return minutes * 60 + seconds;
+  };
 
   useEffect(() => {
-    const watched = localStorage.getItem('hasWatched');
-    if (watched === 'true') {
-      setHasWatched(true);
-      setIsEnded(true)
+    const started = localStorage.getItem(`hasStarted_${store}`);
+    if (started === 'true') {
+      setHasStarted(true);
     }
 
-  }, []);
+    const buttonsShown = localStorage.getItem(`buttonsShown_${store}`);
+    if (buttonsShown === 'true') {
+      setShowButtons(true);
+    }
+  }, [store]);
+
+  // Check video time against showBtn timestamp
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const currentTime = Math.floor(videoRef.current.currentTime);
+      const targetTime = getTimeInSeconds(showBtn);
+      const buttonsShown = localStorage.getItem(`buttonsShown_${store}`);
+
+      if (currentTime >= targetTime && !buttonsShown) {
+        setShowButtons(true);
+        localStorage.setItem(`buttonsShown_${store}`, 'true');
+      }
+    }
+  };
 
   const handleVideoClick = () => {
     if (videoRef.current) {
@@ -36,10 +76,8 @@ export default function Player({ src, link }: { src: string; link: string }) {
     setIsPaused(true);
   };
 
-  const handleEnded = () => {
-    setIsEnded(true);
-    setHasWatched(true);
-    localStorage.setItem('hasWatched', 'true');
+  const handlePlay = () => {
+    setIsPaused(false);
   };
 
   const handleContinue = () => {
@@ -63,13 +101,14 @@ export default function Player({ src, link }: { src: string; link: string }) {
 
   return (
     <>
-      <div className="relative flex justify-center items-center m-4 md:mx-auto p-2 border border-black rounded-xl xl:w-[1100px] select-none aspect-video">
+      <div className={`${moldura ? 'border border-black' : ''} relative flex justify-center items-center m-4 md:mx-auto p-2 rounded-xl xl:w-[1100px] select-none aspect-video`}>
         <video
           ref={videoRef}
           className="w-fit md:w-full h-full select-none"
           onClick={handleVideoClick}
           onPause={handlePause}
-          onEnded={handleEnded}
+          onPlay={handlePlay}
+          onTimeUpdate={handleTimeUpdate}
           disablePictureInPicture
           controlsList="nodownload noplaybackrate"
         >
@@ -78,11 +117,12 @@ export default function Player({ src, link }: { src: string; link: string }) {
         </video>
 
         <div className="absolute inset-0 p-4 pointer-events-none">
-          {/* Pause Overlay */}
           {isPaused && (
             <div className="absolute inset-0 flex justify-center items-center bg-[#8EBF40] bg-opacity-95 m-[5px] p-4 rounded pointer-events-auto">
               <div className="md:space-y-4 bg-transparent p-6 rounded-lg text-center text-white">
-                <p className="md:font-bold text-[16px] md:text-3xl">Você já começou a assistir este vídeo</p>
+                {hasStarted && (
+                  <p className="md:font-bold text-[16px] md:text-3xl">Você já começou a assistir este vídeo</p>
+                )}
                 <div className="flex md:flex-row flex-col justify-center md:space-x-4 mx-auto w-fit text-xs md:text-xl">
                   <button
                     onClick={handleContinue}
@@ -110,15 +150,18 @@ export default function Player({ src, link }: { src: string; link: string }) {
         </div>
       </div>
 
-      {isEnded && (
-        <div className="inset-0 flex justify-center items-center p-4 pointer-events-auto">
-          <div className="bg-white p-6 rounded-lg text-center">
+      {showButtons && (
+        <div className="inset-0 flex justify-center items-center pointer-events-auto">
+          <div className="bg-white md:mx-auto p-2 rounded-xl xl:w-[1100px] text-center">
             <button
               onClick={handlePay}
-              className="flex justify-center items-center gap-2 bg-primary px-14 py-3 rounded-full text-white md:text-2xl animate-pulse duration-1000 ease-in-out"
+              className={`${btnW} flex justify-center items-center gap-2 bg-primary px-14 py-3 rounded-full text-white text-sm md:text-2xl animate-pulse duration-1000 ease-in-out`}
             >
-              <p className="relative top-[2px] md:top-0 font-bold">
-                LIBERAR ACESSO AGORA
+              {btnIcon && (
+                <img className='w-5' src={btnIcon} alt="icon" />
+              )}
+              <p className="relative top-[0px] md:top-0 font-bold">
+                {btnLabel}
               </p>
             </button>
           </div>

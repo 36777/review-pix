@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Header from '../_components/Header';
 import Review from './_components/page';
 import BottomNav from '../_components/BottomNav';
@@ -7,45 +7,85 @@ import BottomNav from '../_components/BottomNav';
 export default function Avaliacao() {
   const [timeout, setTimeoutState] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [usedImages, setUsedImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [selectedIndexes, setSelectedIndexes] = useState([0, 0, 0]);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const [evaluationCount, setEvaluationCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Carregar as imagens locais
+  const storeList = [
+    'adidas',
+    'americanas',
+    'c&a',
+    'casa-bahia',
+    'correfour',
+    'extra',
+    'ipiranga',
+    'magalu',
+    'mcdonalds',
+    'riachuelo',
+    'vivo'
+  ];
+
   useEffect(() => {
-    const imageUrls = [
-      '/estabelecimentos/adidas/1.webp',
-      '/estabelecimentos/ipiranga/1.webp',
-      '/estabelecimentos/riachuelo/1.webp'
-    ];
+    audioRef.current = new Audio('/coin.mp3');
+  }, []);
+
+  useEffect(() => {
+    const imageUrls = storeList.map(store => `/estabelecimentos/${store}/1.webp`);
     setImages(imageUrls);
   }, []);
 
   const getStoreNameFromImage = useCallback((imagePath: string) => {
-    if (imagePath.includes('adidas')) return 'Adidas';
-    if (imagePath.includes('ipiranga')) return 'Ipiranga';
-    if (imagePath.includes('riachuelo')) return 'Riachuelo';
+    const storeMap: { [key: string]: string } = {
+      'adidas': 'Adidas',
+      'americanas': 'Americanas',
+      'c&a': 'C&A',
+      'casa-bahia': 'Casas Bahia',
+      'correfour': 'Carrefour',
+      'extra': 'Extra',
+      'ipiranga': 'Ipiranga',
+      'magalu': 'Magazine Luiza',
+      'mcdonalds': "McDonald's",
+      'riachuelo': 'Riachuelo',
+      'vivo': 'Vivo'
+    };
+
+    for (const [key, value] of Object.entries(storeMap)) {
+      if (imagePath.includes(key)) return value;
+    }
     return '';
   }, []);
 
-  // Função melhorada para animação das imagens
+  const getRandomUnusedImage = useCallback(() => {
+    const availableImages = images.filter(img => !usedImages.includes(img));
+    if (availableImages.length === 0) {
+      // If all images have been used, reset the used images list
+      setUsedImages([]);
+      return images[Math.floor(Math.random() * images.length)];
+    }
+    return availableImages[Math.floor(Math.random() * availableImages.length)];
+  }, [images, usedImages]);
+
   const startImageAnimation = useCallback(() => {
     if (images.length === 0 || isAnimating) return;
 
     setIsAnimating(true);
     let counter = 0;
-    const maxIterations = 20; // Número de trocas de imagem durante a animação
-    const animationInterval = 150; // Intervalo entre cada troca (ms)
+    const maxIterations = 20;
+    const animationInterval = 150;
 
     const interval = setInterval(() => {
       if (counter >= maxIterations) {
         clearInterval(interval);
-        const randomIndex = Math.floor(Math.random() * images.length);
-        setCurrentImageIndex(randomIndex);
-        setStoreName(getStoreNameFromImage(images[randomIndex]));
+        const selectedImage = getRandomUnusedImage();
+        const newIndex = images.indexOf(selectedImage);
+        setCurrentImageIndex(newIndex);
+        setStoreName(getStoreNameFromImage(selectedImage));
+        setUsedImages(prev => [...prev, selectedImage]);
         setTimeoutState(true);
         setIsAnimating(false);
         return;
@@ -59,42 +99,40 @@ export default function Avaliacao() {
       clearInterval(interval);
       setIsAnimating(false);
     };
-  }, [images, isAnimating, getStoreNameFromImage]);
+  }, [images, isAnimating, getStoreNameFromImage, getRandomUnusedImage]);
 
-  // Iniciar animação quando o componente montar ou quando as imagens forem carregadas
   useEffect(() => {
     if (images.length > 0 && !timeout) {
       startImageAnimation();
     }
   }, [images, timeout, startImageAnimation]);
 
-  // Reset e reinício da avaliação
-  // Reset e reinício da avaliação
+  const allReviewsFilled = selectedIndexes.every(index => index > 0);
+
   const handleEvaluation = useCallback(() => {
+    if (audioRef.current && allReviewsFilled && priceRange !== null) {
+      audioRef.current.play();
+    }
+
     setEvaluationCount(prevCount => prevCount + 1);
     setSelectedIndexes([0, 0, 0]);
     setPriceRange(null);
     setTimeoutState(false);
 
-    // Primeiro executa o scroll
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Aguarda o scroll terminar antes de iniciar nova animação
     setTimeout(() => {
-      // Força um segundo scroll para garantir
       window.scrollTo({ top: 0, behavior: 'smooth' });
       startImageAnimation();
-    }, 500); // Aumentado para 500ms para dar tempo do scroll completar
-  }, [startImageAnimation]);
+    }, 500);
+  }, [startImageAnimation, allReviewsFilled, priceRange]);
 
-  // Verificar contagem de avaliações para redirecionamento
   useEffect(() => {
     if (evaluationCount >= 3) {
-      window.location.href = '/avaliacao/success';
+      window.location.href = '/vsl-4';
     }
   }, [evaluationCount]);
 
-  const allReviewsFilled = selectedIndexes.every(index => index > 0);
   const isPostButtonEnabled = allReviewsFilled && priceRange !== null;
 
   function ToggleButtons() {
@@ -136,7 +174,7 @@ export default function Avaliacao() {
             <div className='flex flex-col gap-2 mx-auto p-2 border rounded-2xl w-full max-w-[500px] max-sm:max-w-[90%]'>
               <div className='bg-gray-500 rounded-2xl w-full max-sm:h-[200px] min-h-[250px]'>
                 <img
-                  key={currentImageIndex} // Adiciona key para forçar re-render
+                  key={currentImageIndex}
                   src={images[currentImageIndex]}
                   alt="Imagem do Estabelecimento"
                   className="rounded-2xl w-full h-full object-cover"
@@ -146,7 +184,7 @@ export default function Avaliacao() {
           )}
           <div className='flex flex-col justify-center items-center gap-4 max-sm:gap-2 mt-8 max-sm:mt-4 mb-[150px] text-center'>
             <p className='font-semibold text-3xl text-primary max-sm:text-2xl'>R$ 70,83</p>
-            <p className='font-semibold text-3xl text-primary max-sm:text-2xl'>{storeName}</p>
+            <p className='font-semibold text-3xl text-primary max-sm:text-2xl'>{timeout && storeName}</p>
             <div className="rounded-md text-white">
               <div className="flex">
                 {Array(5).fill(0).map((_, i) => (
