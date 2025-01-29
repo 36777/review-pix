@@ -43,18 +43,28 @@ export default function Avaliacao() {
     let interval: any;
     if (images.length > 0) {
       interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length); // Trocar a imagem de forma circular
-      }, 55); // Trocar imagem a cada 55ms
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 55);
 
-      // Após 3 segundos, parar a animação e definir uma imagem aleatória
       setTimeout(() => {
         clearInterval(interval);
-        setCurrentImageIndex(Math.floor(Math.random() * images.length)); // Definir uma imagem aleatória
-        setStoreName(storeNames[Math.floor(Math.random() * storeNames.length)]); // Selecionar um nome aleatório
-        setTimeoutState(true); // Indicar que a animação terminou
-      }, 3000); // Parar após 3 segundos
+        const randomIndex = Math.floor(Math.random() * images.length);
+        setCurrentImageIndex(randomIndex);
 
-      return () => clearInterval(interval); // Limpar intervalo ao sair
+        // Get store name from the image path
+        const selectedImage = images[randomIndex];
+        if (selectedImage.includes('adidas')) {
+          setStoreName('Adidas');
+        } else if (selectedImage.includes('ipiranga')) {
+          setStoreName('Ipiranga');
+        } else if (selectedImage.includes('riachuelo')) {
+          setStoreName('Riachuelo');
+        }
+
+        setTimeoutState(true);
+      }, 3000);
+
+      return () => clearInterval(interval);
     }
   };
 
