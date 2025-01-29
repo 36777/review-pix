@@ -71,8 +71,8 @@ export default function Form() {
         }) as any;
 
         if (!response.ok) {
-          alert('Ocorreu um erro!')
           const errorData = await response.json();
+          alert(errorData?.error || 'Erro desconhecido')
           throw new Error(errorData?.error || 'Erro desconhecido');
         }
 
