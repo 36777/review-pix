@@ -53,8 +53,9 @@ export default function Form() {
   };
 
   const handleSubmit = async () => {
-    const isValidCPF = selection === 'document' && inputValue.length === 14;
-    const isValidPhone = selection === 'celular' && inputValue.length === 15;
+    const cleanValue = inputValue.replace(/\D/g, '');
+    const isValidCPF = selection === 'cpf' && cleanValue.length === 11;
+    const isValidPhone = selection === 'celular' && cleanValue.length === 11;
 
     if (inputValue !== '' && (isValidCPF || isValidPhone)) {
       try {
@@ -74,8 +75,7 @@ export default function Form() {
           throw new Error(errorData?.error || 'Erro desconhecido');
         }
 
-        const data = await response.json(); // Correctly parse the response as JSON
-
+        const data = await response.json();
 
         if (!response.ok) {
           throw new Error('Erro na requisição');
@@ -86,7 +86,6 @@ export default function Form() {
         } else {
           router.push('/success');
         }
-
 
       } catch (error) {
       }
