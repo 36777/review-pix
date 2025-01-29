@@ -14,7 +14,7 @@ export default function Home() {
             </h3>
             <div className='bg-white opacity-0 px-6 sm:px-10 pt-8 sm:pt-14 pb-6 rounded-3xl w-full max-w-[400px] min-h-[380px] text-[#0BD11A] translate-x-[-50px] animate-delay-500 animate-fade-in-left animate-duration-1000'>
               <div className=''>
-                <div className='font-bold text-[1.7rem] text-center sm:text-[1.70rem] leading-7 translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
+                <div className='font-bold text-[1.6rem] text-center sm:text-[1.70rem] leading-7 translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
                   Ganhe até R$ 200 p/dia <br /> por dar Feedbacks para empresas!
                 </div>
                 <div className='opacity-0 my-6 text-center text-gray-500 text-sm sm:text-base translate-x-[-50px] animate-delay-700 animate-fade-in-left animate-duration-1000'>
