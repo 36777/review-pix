@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import Header from '../_components/Header';
 import Review from './_components/page';
 import BottomNav from '../_components/BottomNav';
-import Link from 'next/link';
 
 export default function Avaliacao() {
   const [timeout, setTimeoutState] = useState(false);
@@ -11,13 +10,14 @@ export default function Avaliacao() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [selectedIndexes, setSelectedIndexes] = useState([0, 0, 0]);
-  const [priceRange, setPriceRange] = useState<string | null>(null); // Faixa de preço selecionada
+  const [priceRange, setPriceRange] = useState<string | null>(null);
+  const [evaluationCount, setEvaluationCount] = useState(0); // Contador de avaliações
 
   // Array com 3 nomes de lojas
   const storeNames = ['Riachuelo', 'Nike', 'Adidas'];
 
+  // Carregar as imagens da API pública
   useEffect(() => {
-    // Carregar as imagens da API pública
     const loadImages = async () => {
       const imageUrls = [] as any;
       for (let i = 0; i < 3; i++) {
@@ -30,23 +30,29 @@ export default function Avaliacao() {
     loadImages();
   }, []);
 
-  useEffect(() => {
-    // Mudar para "Estabelecimento encontrado" após 3 segundos
+  // Função para iniciar a animação das imagens
+  const startImageAnimation = () => {
     let interval: any;
     if (images.length > 0) {
       interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length); // Trocar a imagem de forma circular
-      }, 55); // Trocar imagem a cada 200ms
+      }, 55); // Trocar imagem a cada 55ms
 
-      // Após 3 segundos, parar de trocar as imagens e mudar o texto
+      // Após 3 segundos, parar a animação e definir uma imagem aleatória
       setTimeout(() => {
         clearInterval(interval);
-        setStoreName(storeNames[Math.floor(Math.random() * storeNames.length)]); // Seleciona um nome aleatório
-        setTimeoutState(true); // Mudar para "Estabelecimento encontrado" após parar a troca de imagens
+        setCurrentImageIndex(Math.floor(Math.random() * images.length)); // Definir uma imagem aleatória
+        setStoreName(storeNames[Math.floor(Math.random() * storeNames.length)]); // Selecionar um nome aleatório
+        setTimeoutState(true); // Indicar que a animação terminou
       }, 3000); // Parar após 3 segundos
 
       return () => clearInterval(interval); // Limpar intervalo ao sair
     }
+  };
+
+  // Iniciar a animação das imagens quando o componente carregar ou quando as imagens mudarem
+  useEffect(() => {
+    startImageAnimation();
   }, [images]);
 
   // Verifica se todas as avaliações estão preenchidas
@@ -55,26 +61,39 @@ export default function Avaliacao() {
   // Verifica se o botão "POSTAR FEEDBACK" deve estar habilitado
   const isPostButtonEnabled = allReviewsFilled && priceRange !== null;
 
+  // Função para lidar com o clique no botão de avaliação
+  const handleEvaluation = () => {
+    setEvaluationCount((prevCount) => prevCount + 1); // Incrementar o contador de avaliações
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir o scroll para o topo
+    setTimeoutState(false); // Reiniciar o estado da animação
+    startImageAnimation(); // Reiniciar a animação das imagens
+  };
+
+  // Redirecionar para a página de sucesso após 4 avaliações
+  useEffect(() => {
+    if (evaluationCount >= 3) {
+      window.location.href = '/avaliacao/success';
+    }
+  }, [evaluationCount]);
+
+  // Componente dos botões de faixa de preço
   function ToggleButtons() {
     return (
       <div className="flex gap-2 mb-12">
         <button
-          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'
-            }`}
+          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'}`}
           onClick={() => setPriceRange('$')}
         >
           $
         </button>
         <button
-          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'
-            }`}
+          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'}`}
           onClick={() => setPriceRange('$$')}
         >
           $$
         </button>
         <button
-          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$$$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'
-            }`}
+          className={`border-[#aaaaaa] border-2 hover:border-primary hover:bg-white hover:text-primary px-10 py-2 rounded-xl transition-all ${priceRange === '$$$' ? 'bg-primary text-white' : 'bg-[#DDDDDD]'}`}
           onClick={() => setPriceRange('$$$')}
         >
           $$$
@@ -90,7 +109,7 @@ export default function Avaliacao() {
         <div className='justify-center items-center gap-4 grid mt-14'>
           <div className='flex justify-center items-center gap-4'>
             <h3 className='mb-5 font-bold text-[1.7rem] text-primary'>
-              {timeout ? `Estabelecimento Encontrado` : 'Procurando estabelecimento'}
+              {timeout ? 'Estabelecimento Encontrado' : 'Procurando estabelecimento'}
             </h3>
           </div>
           {images.length > 0 && (
@@ -147,14 +166,13 @@ export default function Avaliacao() {
               perg={'Como você descreveria a qualidade dos produtos?'}
             />
             {ToggleButtons()}
-            <Link href={'/avaliacao/success'} className='w-full'>
-              <button
-                disabled={!isPostButtonEnabled}
-                className={`hover:scale-110 text-2xl mb-[50px] max-sm:mb-[20px] p-4 max-sm:p-3 rounded-md md:w-full w-[80%] text-white transition-all ${isPostButtonEnabled ? 'bg-primary' : 'bg-[#A7E27F] cursor-not-allowed'}`}
-              >
-                POSTAR FEEDBACK
-              </button>
-            </Link>
+            <button
+              disabled={!isPostButtonEnabled}
+              onClick={handleEvaluation}
+              className={`hover:scale-110 text-2xl mb-[50px] max-sm:mb-[20px] p-4 max-sm:p-3 rounded-md md:w-full w-[80%] text-white transition-all ${isPostButtonEnabled ? 'bg-primary' : 'bg-[#A7E27F] cursor-not-allowed'}`}
+            >
+              POSTAR FEEDBACK
+            </button>
           </div>
         </div>
       </div>
