@@ -150,7 +150,7 @@ export default function Avaliacao() {
             <Link href={'/avaliacao/success'} className='w-full'>
               <button
                 disabled={!isPostButtonEnabled}
-                className={`mb-[50px] max-sm:mb-[20px] p-4 max-sm:p-3 rounded-md md:w-full w-[80%] text-white transition-all ${isPostButtonEnabled ? 'bg-primary' : 'bg-[#A7E27F] cursor-not-allowed'}`}
+                className={`hover:scale-110 text-2xl mb-[50px] max-sm:mb-[20px] p-4 max-sm:p-3 rounded-md md:w-full w-[80%] text-white transition-all ${isPostButtonEnabled ? 'bg-primary' : 'bg-[#A7E27F] cursor-not-allowed'}`}
               >
                 POSTAR FEEDBACK
               </button>
