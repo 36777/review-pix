@@ -14,14 +14,13 @@ export default function Review({
   setSelectedIndexes: (indexes: number[]) => void;
 }) {
   const [isHovered, setIsHovered] = useState(-1);
-  const currentSelectedIndex = selectedIndexes[reviewIndex];
+  const currentSelectedIndex = selectedIndexes[reviewIndex] ?? -1;
 
   return (
     <div className="w-full">
       <p className='mb-4 font-bold text-2xl max-sm:text-lg'>{perg}</p>
       <div className="flex justify-center items-center gap-1">
         <p className='flex items-end max-sm:hidden text-gray-600 text-sm max-sm:text-xs'>Muito Ruim</p>
-
         {[...Array(5)].map((_, index) => (
           <div
             key={index}
@@ -46,10 +45,10 @@ export default function Review({
             >
               <polygon
                 points="12 17.27 18.18 21 15.54 13.97 21 9.24 13.81 8.63 12 2 10.19 8.63 3 9.24 8.46 13.97 5.82 21 12 17.27"
-                className={`${isHovered >= index || currentSelectedIndex >= index + 1
+                className={(currentSelectedIndex !== 0 && (isHovered >= index || currentSelectedIndex >= index))
                   ? 'fill-primary stroke-primary'
                   : 'fill-[#DDDDDD] stroke-gray-500'
-                  }`}
+                }
               />
             </svg>
           </div>

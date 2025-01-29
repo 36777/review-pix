@@ -189,14 +189,14 @@ export default function Cadastro() {
           <button
             type="button"
             onClick={handlePreviousStep}
-            className='bg-primary hover:bg-primary-dark mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
+            className='bg-primary hover:bg-primary/85 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
           >
             Anterior
           </button>
           <button
             type="button"
             onClick={handleSubmit}
-            className='bg-primary hover:bg-primary-dark mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
+            className='bg-primary hover:bg-primary/85 mb-2 px-4 py-2 rounded-full w-1/2 font-bold text-sm text-white'
           >
             Finalizar
           </button>
