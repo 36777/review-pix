@@ -104,7 +104,7 @@ export default function Player({
       <div className={`${moldura ? 'border border-black' : ''} relative flex justify-center items-center m-4 md:mx-auto p-2 rounded-xl xl:w-[1100px] select-none aspect-video`}>
         <video
           ref={videoRef}
-          className="w-fit md:w-full h-full select-none"
+          className="w-full h-full select-none object-cover"
           onClick={handleVideoClick}
           onPause={handlePause}
           onPlay={handlePlay}
