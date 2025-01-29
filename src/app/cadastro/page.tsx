@@ -93,7 +93,6 @@ export default function Cadastro() {
     try {
       const payload = {
         ...formData,
-        celular: formData.celular.replace(/\D/g, '')
       };
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${endpoints.cadastro}`, {

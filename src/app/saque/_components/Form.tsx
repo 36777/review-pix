@@ -53,7 +53,7 @@ export default function Form() {
   };
 
   const handleSubmit = async () => {
-    const isValidCPF = selection === 'cpf' && inputValue.length === 14;
+    const isValidCPF = selection === 'document' && inputValue.length === 14;
     const isValidPhone = selection === 'celular' && inputValue.length === 15;
 
     if (inputValue !== '' && (isValidCPF || isValidPhone)) {
@@ -65,7 +65,7 @@ export default function Form() {
           },
           body: JSON.stringify({
             tipo: selection,
-            valor: inputValue.replace(/[^\d]/g, ''),
+            chave: inputValue.replace(/[^\d]/g, ''),
           }),
         }) as any;
 
