@@ -6,7 +6,7 @@ import BottomNav from '../_components/BottomNav';
 
 export default function Avaliacao() {
   const [timeout, setTimeoutState] = useState(false);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [selectedIndexes, setSelectedIndexes] = useState([0, 0, 0]);
@@ -14,16 +14,24 @@ export default function Avaliacao() {
   const [evaluationCount, setEvaluationCount] = useState(0); // Contador de avaliações
 
   // Array com 3 nomes de lojas
-  const storeNames = ['Riachuelo', 'Nike', 'Adidas'];
+  const storeNames = ['Riachuelo', 'Ipiranga', 'Adidas'];
 
-  // Carregar as imagens da API pública
+  // Carregar as imagens locais
   useEffect(() => {
-    const loadImages = async () => {
-      const imageUrls = [] as any;
-      for (let i = 0; i < 3; i++) {
-        const response = await fetch('https://picsum.photos/200/300?random=' + i);
-        imageUrls.push(response.url);
-      }
+    const loadImages = () => {
+      const imageUrls: string[] = [];
+
+      // Função para carregar imagens de uma pasta específica
+      const loadImagesFromFolder = (folder: string) => {
+        // Para Next.js 13+, use importação direta
+        imageUrls.push(`/estabelecimentos/${folder}/1.webp`);
+      };
+
+      // Carregar imagens de todas as pastas
+      loadImagesFromFolder('adidas');
+      loadImagesFromFolder('ipiranga');
+      loadImagesFromFolder('riachuelo');
+
       setImages(imageUrls);
     };
 
@@ -114,14 +122,14 @@ export default function Avaliacao() {
           </div>
           {images.length > 0 && (
             <div className='flex flex-col gap-2 mx-auto p-2 border rounded-2xl w-full max-w-[500px] max-sm:max-w-[90%]'>
-              <div className='bg-gray-500 rounded-2xl w-full h-[250px] max-sm:h-[200px]'>
+              <div className='bg-gray-500 rounded-2xl w-full max-sm:h-[200px] min-h-[250px]'>
                 <img
                   src={images[currentImageIndex]}
                   alt="Imagem do Estabelecimento"
                   className="rounded-2xl w-full h-full object-cover"
                 />
               </div>
-              <div className='flex gap-2 max-sm:gap-1'>
+              {/* <div className='flex gap-2 max-sm:gap-1'>
                 {images.map((image, index) => (
                   <div key={index} className='bg-gray-400 rounded-2xl w-[180px] max-sm:w-[calc(33%-4px)] h-[100px] max-sm:h-[80px]'>
                     <img
@@ -131,7 +139,7 @@ export default function Avaliacao() {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           )}
           <div className='flex flex-col justify-center items-center gap-4 max-sm:gap-2 mt-8 max-sm:mt-4 mb-[150px] text-center'>
