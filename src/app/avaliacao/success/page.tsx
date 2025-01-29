@@ -15,7 +15,7 @@ export default function SuccessAv() {
         <p className='px-4 text-white md:text-2xl'>
           Assista um curto vídeo com um passo a passo explicativo para você aprender a realizar o seu primeiro <b>SAQUE</b>
         </p>
-        <Link href={'/vsl'}>
+        <Link href={'/vsl-4'}>
           <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>ASSISTIR VÍDEO</button>
         </Link>
       </div>
