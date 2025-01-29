@@ -129,7 +129,7 @@ export default function Avaliacao() {
 
   useEffect(() => {
     if (evaluationCount >= 3) {
-      window.location.href = '/vsl-4';
+      window.location.href = '/avaliacao/success';
     }
   }, [evaluationCount]);
 
