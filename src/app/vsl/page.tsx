@@ -20,7 +20,7 @@ export default function Vsl() {
           </svg>
           <h1 className='px-5 font-bold text-[19px] text-primary md:text-2xl uppercase'>Assista o vídeo até o final!</h1>
         </div>
-        <Player src="/vsl.mp4" link='/pay' />
+        <Player src="/vsl.mp4" link='/saque' />
       </main>
     </div>
   );
