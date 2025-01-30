@@ -1,6 +1,7 @@
 import BottomNav from '../_components/BottomNav';
 import Header from '../_components/Header';
 import Player from '../_components/Player';
+import VTurbPlayer from './VTurbPlayer';
 
 export default function Vsl() {
   return (
@@ -20,7 +21,18 @@ export default function Vsl() {
           </svg>
           <h1 className='px-5 font-bold text-[16px] text-primary md:text-2xl uppercase'>Assista o vídeo até o final!</h1>
         </div>
-        <Player store='vsl-4' showBtn='12:26' btnLabel='REALIZAR SAQUE TESTE' btnW='w-full' moldura={true} src="/vsl-up-4.mp4" link='/saque' />
+        <VTurbPlayer
+          moldura={true}
+          videoId="679be2598fcda660f3bacc00"
+          thumbnail="https://images.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2598fcda660f3bacc00/thumbnail.jpg"
+          script="https://scripts.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2598fcda660f3bacc00/player.js"
+          link="/saque"
+          btnW="w-full"
+          btnIcon=""
+          btnLabel="REALIZAR SAQUE TESTE"
+          timerValue="12:26"
+        />
+        {/* <Player store='vsl-4' showBtn='12:26' btnLabel='REALIZAR SAQUE TESTE' btnW='w-full' moldura={true} src="/vsl-up-4.mp4" link='/saque' /> */}
       </main>
     </div>
   );
