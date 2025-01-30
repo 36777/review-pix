@@ -14,7 +14,7 @@ export default function SuccessPayment() {
           </h1>
         </div>
         <h3 className='mt-4 px-5 font-bold text-[18px] text-center text-primary md:text-[25px] md:text-2xl uppercase leading-5'>ATENÇÃO, VEJA ESSE VÍDEO ATÉ O FINAL PARA ACESSAR O REVIEWPIX!</h3>
-        <Player store='up-2' showBtn='00:41' btnW={'w-full'} moldura={false} btnIcon='/icons/cadeado.png' btnLabel={'Desbloquear FEEDFY'} src="/vsl-up-2.mp4" link='https://checkout.perfectpay.com.br/pay/PPU38CPD6SH?upsell=true&utm_source=13b1b66d-a1d6-481d-a583-4094f2f21a53%3A%3A%3A%3A&subid=13b1b66d-a1d6-481d-a583-4094f2f21a53&xcod=13b1b66d-a1d6-481d-a583-4094f2f21a53%3A%3A%3A%3AhQwK21wXxRhQwK21wXxRhQwK21wXxRhQwK21wXxR&sck=13b1b66d-a1d6-481d-a583-4094f2f21a53%3A%3A%3A%3AhQwK21wXxRhQwK21wXxRhQwK21wXxRhQwK21wXxR' />
+        <Player store='up-2' showBtn='00:41' btnW={'w-full'} moldura={false} btnIcon='/icons/cadeado.png' btnLabel={'Desbloquear FEEDFY'} src="/vsl-up-2.mp4" link='https://go.perfectpay.com.br/PPU38CPFMS9?upsell=true' />
         <p className='mt-4 px-7 text-[16px] text-center text-primary md:text-2xl leading-4'><strong>Atenção:</strong> ao sair desta página você perderá essa oportunidade para sempre!</p>
       </main>
     </div>
