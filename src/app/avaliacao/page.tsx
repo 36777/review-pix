@@ -172,7 +172,7 @@ export default function Avaliacao() {
           </div>
           {images.length > 0 && (
             <div className='flex flex-col gap-2 mx-auto p-2 border rounded-2xl w-full max-w-[500px] max-sm:max-w-[90%]'>
-              <div className='bg-gray-500 rounded-2xl w-full max-sm:h-[200px] min-h-[250px]'>
+              <div className='flex items-center bg-transparent rounded-2xl w-full max-sm:h-[250px] md:min-h-[360px]'>
                 <img
                   key={currentImageIndex}
                   src={images[currentImageIndex]}
