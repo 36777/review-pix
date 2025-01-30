@@ -3,8 +3,17 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, btnIcon, btnLabel, timerValue = '00:03' }: any) => {
-  const [showButtons, setShowButtons] = useState(false); // Estado para controlar a exibição do botão
-  const [currentTimer, setCurrentTimer] = useState('00:00'); // Estado para armazenar o valor do timer
+  const [showButtons, setShowButtons] = useState(false);
+
+  // Inicializa o timer com o valor do localStorage ou '00:00'
+  const [currentTimer, setCurrentTimer] = useState(() => {
+    // Verifica se estamos no ambiente do cliente antes de acessar localStorage
+    if (typeof window !== 'undefined') {
+      const savedTimer = localStorage.getItem(`vturb_timer_${videoId}`);
+      return savedTimer || '00:00';
+    }
+    return '00:00';
+  });
 
   useEffect(() => {
     // Verifica se o script já foi carregado para evitar duplicação
@@ -16,7 +25,13 @@ const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, 
       document.head.appendChild(scriptElement);
     }
 
-    // Simula um timer que atualiza o valor do estado `currentTimer`
+    // Recupera o estado dos botões do localStorage
+    const savedShowButtons = localStorage.getItem(`vturb_buttons_${videoId}`);
+    if (savedShowButtons === 'true') {
+      setShowButtons(true);
+    }
+
+    // Timer que atualiza o valor do estado `currentTimer`
     const timerInterval = setInterval(() => {
       setCurrentTimer((prevValue) => {
         const [minutes, seconds] = prevValue.split(':').map(Number);
@@ -35,9 +50,14 @@ const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, 
         const formattedMinutes = String(newMinutes).padStart(2, '0');
         const formattedSeconds = String(newSeconds).padStart(2, '0');
 
-        return `${formattedMinutes}:${formattedSeconds}`;
+        const newTimer = `${formattedMinutes}:${formattedSeconds}`;
+
+        // Salva o novo valor no localStorage
+        localStorage.setItem(`vturb_timer_${videoId}`, newTimer);
+
+        return newTimer;
       });
-    }, 1000); // Atualiza a cada 1 segundo
+    }, 1000);
 
     // Limpa o intervalo ao desmontar o componente
     return () => clearInterval(timerInterval);
@@ -47,8 +67,18 @@ const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, 
     // Quando o valor do timer atingir o valor da prop `timerValue`, exibe o botão
     if (currentTimer === timerValue) {
       setShowButtons(true);
+      // Salva o estado dos botões no localStorage
+      localStorage.setItem(`vturb_buttons_${videoId}`, 'true');
     }
-  }, [currentTimer, timerValue]);
+  }, [currentTimer, timerValue, videoId]);
+
+  // Função para resetar o timer (pode ser útil em algumas situações)
+  const resetTimer = () => {
+    localStorage.removeItem(`vturb_timer_${videoId}`);
+    localStorage.removeItem(`vturb_buttons_${videoId}`);
+    setCurrentTimer('00:00');
+    setShowButtons(false);
+  };
 
   return (
     <>
@@ -79,7 +109,7 @@ const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, 
               className={`${btnW} flex justify-center items-center gap-2 bg-primary px-14 py-3 rounded-full text-white text-sm md:text-2xl animate-pulse duration-1000 ease-in-out`}
             >
               {btnIcon && (
-                <img className='w-5' src={btnIcon} alt="icon" />
+                <img className="w-5" src={btnIcon} alt="icon" />
               )}
               <p className="relative top-[0px] md:top-0 font-bold">
                 {btnLabel}
