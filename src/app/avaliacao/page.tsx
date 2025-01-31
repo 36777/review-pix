@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Header from '../_components/Header';
 import Review from './_components/page';
 import BottomNav from '../_components/BottomNav';
+import { useHeaderSaldo } from '../_context/useHeaderSaldo';
 
 export default function Avaliacao() {
   const [timeout, setTimeoutState] = useState(false);
@@ -15,6 +16,55 @@ export default function Avaliacao() {
   const [evaluationCount, setEvaluationCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { balance, setBalance, setTargetBalance, targetBalance } = useHeaderSaldo();
+
+  useEffect(() => {
+    setBalance(0);
+  }, []);
+
+  const updateBalanceAnimated = useCallback((newTargetBalance: any) => {
+    const duration = 500;
+    let startTime = null as any;
+    let initialBalance = parseFloat(balance as any);
+    let target = newTargetBalance;
+
+    const animate = (timestamp: any) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const increment = initialBalance + ((target - initialBalance) * (progress / duration));
+      const formattedBalance = parseFloat(increment.toFixed(2));
+      setBalance(formattedBalance);
+      localStorage.setItem('balance', formattedBalance.toString());
+
+      // Verifica se a animação já terminou
+      if (progress < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        // Garante que o saldo final seja exatamente 235.67
+        setBalance(target.toFixed(2));
+        localStorage.setItem('balance', target.toFixed(2));
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [balance, setBalance]);
+
+  useEffect(() => {
+    if (evaluationCount === 1) {
+      updateBalanceAnimated(70.83);
+    } else if (evaluationCount === 2) {
+      updateBalanceAnimated(146.46);
+    } else if (evaluationCount === 3) {
+      updateBalanceAnimated(235.67); // Chama a função para alcançar 235.67
+      if (balance === 235.67) {
+        setTimeout(() => {
+          window.location.href = '/avaliacao/success';
+        }, 100); // Pequeno atraso para garantir que o estado foi atualizado
+      }
+    }
+  }, [evaluationCount, updateBalanceAnimated]);
+
+
 
   const storeList = [
     'adidas',
@@ -63,7 +113,6 @@ export default function Avaliacao() {
   const getRandomUnusedImage = useCallback(() => {
     const availableImages = images.filter(img => !usedImages.includes(img));
     if (availableImages.length === 0) {
-      // If all images have been used, reset the used images list
       setUsedImages([]);
       return images[Math.floor(Math.random() * images.length)];
     }
@@ -127,11 +176,6 @@ export default function Avaliacao() {
     }, 500);
   }, [startImageAnimation, allReviewsFilled, priceRange]);
 
-  useEffect(() => {
-    if (evaluationCount >= 3) {
-      window.location.href = '/avaliacao/success';
-    }
-  }, [evaluationCount]);
 
   const isPostButtonEnabled = allReviewsFilled && priceRange !== null;
 
