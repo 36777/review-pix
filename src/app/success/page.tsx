@@ -19,7 +19,7 @@ export default function Success() {
         {/* <p className='px-4 text-white md:text-2xl'>
           Agora basta <b>dar sua opinião</b> em mais estabelecimentos para realizar seu <b>primeiro saque</b>
         </p> */}
-        <Link href={'/success-payment'}>
+        <Link href={'/vsl'}>
           <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>CONTINUAR</button>
         </Link>
       </div>
