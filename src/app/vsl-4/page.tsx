@@ -31,7 +31,7 @@ export default function Vsl() {
           btnW="w-full"
           btnIcon=""
           btnLabel="REALIZAR SAQUE TESTE"
-          timerValue="12:26"
+          timerValue="12:12"
         />
         {/* <Player store='vsl-4' showBtn='12:26' btnLabel='REALIZAR SAQUE TESTE' btnW='w-full' moldura={true} src="/vsl-up-4.mp4" link='/saque' /> */}
       </main>
