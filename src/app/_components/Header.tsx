@@ -1,29 +1,15 @@
 'use client'
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import { useHeaderSaldo } from '../_context/useHeaderSaldo';
 
 export default function Header() {
-  const [balance, setBalance] = useState(0);
-  const targetBalance = 235.67;
-  const duration = 2000;
-
+  const { balance, setBalance, setTargetBalance, targetBalance } = useHeaderSaldo()
   useEffect(() => {
-    let startTime = null as any;
-
-    const increaseBalance = (timestamp: any) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const increment = Math.min(progress / duration * targetBalance, targetBalance) as any;
-
-      setBalance(increment.toFixed(2));
-
-      if (progress < duration) {
-        requestAnimationFrame(increaseBalance);
-      }
-    };
-
-
-    requestAnimationFrame(increaseBalance);
+    const storedBalance = localStorage.getItem('balance');
+    if (storedBalance) {
+      setBalance(parseFloat(storedBalance)); // Definir o saldo inicial com o valor do localStorage
+    }
   }, []);
 
   return (
@@ -40,11 +26,11 @@ export default function Header() {
           </Link>
 
           <div className="relative top-[-5px] right-8 z-[999] flex justify-center items-center">
-            <button className="relative flex justify-center items-center border-white bg-primary px-4 py-[0.35rem] border rounded-full text-white">
+            <button className="relative flex justify-center items-center border-white bg-primary px-4 py-[0.35rem] border rounded-full min-w-[124px] text-white">
               <span className="top-[-10px] left-5 z-[999] absolute bg-primary px-[3px] font-medium text-[1.0rem]">
                 Saldo
               </span>
-              <span className="relative top-[3px] md:top-0 z-[9999] font-bold text-[1.20rem]">
+              <span className="relative top-[3px] md:top-0 z-[9999] min-w-[78px] font-bold text-[1.20rem]">
                 R$ {balance}
               </span>
             </button>
