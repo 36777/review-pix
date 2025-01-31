@@ -2,7 +2,7 @@ export default function BottomNav() {
   return (
     <>
       <svg
-        className="bottom-0 left-0 z-[9] fixed w-full object-cover"
+        className="bottom-0 left-0 z-[999999] fixed w-full object-cover"
         width="100%"
         height="109"
         viewBox="0 0 1913 79"
@@ -18,7 +18,7 @@ export default function BottomNav() {
         />
       </svg>
 
-      <div className="right-0 bottom-10 left-0 z-[9999] fixed flex justify-center items-center px-4">
+      <div className="right-0 bottom-10 left-0 z-[99999999999] fixed flex justify-center items-center px-4">
         <div className="relative top-4 z-[auto] flex justify-center items-center space-x-[60%] md:space-x-[500px] w-full">
           <button className="py-2 rounded-full text-white">
             <img src="/icon-1.png" alt="Icon 1" className="w-8 md:w-8 h-8 md:h-8" />
