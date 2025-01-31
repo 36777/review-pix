@@ -27,7 +27,7 @@ export default function Vsl() {
           videoId="679be2446f24ce1f4f9e0ce0"
           thumbnail="https://images.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2446f24ce1f4f9e0ce0/thumbnail.jpg"
           script="https://scripts.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2446f24ce1f4f9e0ce0/player.js"
-          link="/saque"
+          link="https://go.perfectpay.com.br/PPU38CPFMEB"
           btnW="w-full"
           btnIcon=""
           btnLabel="LIBERAR ACESSO AGORA"
