@@ -31,7 +31,7 @@ export default function Header() {
                 Saldo
               </span>
               <span className="relative top-[3px] md:top-0 z-[9999] min-w-[78px] font-bold text-[1.20rem]">
-                R$ {balance}
+                R$ {Number(balance).toFixed(2)}
               </span>
             </button>
           </div>
