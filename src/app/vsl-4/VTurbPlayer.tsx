@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, btnIcon, btnLabel, timerValue = '00:03' }: any) => {
   const [showButtons, setShowButtons] = useState(false);
   const checkTimeInterval = useRef<NodeJS.Timeout | null>(null);
+  const scriptRef = useRef<HTMLScriptElement | null>(null); // Referência ao script
 
   useEffect(() => {
     // Verifica se o script já foi carregado
@@ -19,13 +20,21 @@ const VTurbPlayer = ({ moldura = false, videoId, thumbnail, script, link, btnW, 
       };
 
       document.head.appendChild(scriptElement);
+      scriptRef.current = scriptElement; // Armazena a referência do script
     } else {
       setupTimeCheck();
     }
 
     return () => {
+      // Limpa o intervalo ao desmontar
       if (checkTimeInterval.current) {
         clearInterval(checkTimeInterval.current);
+      }
+
+      // Remove o script ao desmontar
+      if (scriptRef.current) {
+        document.head.removeChild(scriptRef.current);
+        scriptRef.current = null;
       }
     };
   }, [videoId, script]);

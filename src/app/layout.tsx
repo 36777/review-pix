@@ -69,7 +69,6 @@ export default function RootLayout({
         <GoogleAnalytics gaId="G-WSCTNZ2Y1Q" />
         <GoogleTagManager />
         <Head>
-          <script type="text/javascript" id="scr_679be2598fcda660f3bacc00"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2598fcda660f3bacc00/player.js", s.async=!0,document.head.appendChild(s); </script>
           {/* Google Tag Manager */}
           <Script
             id="gtm-script"

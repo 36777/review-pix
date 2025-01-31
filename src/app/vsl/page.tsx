@@ -22,6 +22,7 @@ export default function Vsl() {
           <h1 className='px-5 font-bold text-[16px] text-primary md:text-2xl uppercase'>Assista o vídeo até o final!</h1>
         </div>
         <VTurbPlayer
+          key={'679be2446f24ce1f4f9e0ce0'}
           moldura={true}
           videoId="679be2446f24ce1f4f9e0ce0"
           thumbnail="https://images.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be2446f24ce1f4f9e0ce0/thumbnail.jpg"
