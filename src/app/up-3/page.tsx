@@ -12,6 +12,7 @@ export default function SuccessPayment() {
         <h3 className='mt-8 px-5 font-bold text-[22px] text-center text-primary md:text-[25px] uppercase leading-5'>ATENÇÃO, VEJA ESSE VÍDEO ATÉ O FINAL PARA ACESSAR O REVIEWPIX!</h3>
 
         <VTurbPlayer
+          key={'679be9533ca340137751a4b7'}
           moldura={true}
           videoId="679be9533ca340137751a4b7"
           thumbnail="https://images.converteai.net/bf49b45e-b78d-47d5-8043-902101442a42/players/679be9533ca340137751a4b7/thumbnail.jpg"
