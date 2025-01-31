@@ -31,7 +31,7 @@ export default function Vsl() {
           btnW="w-full"
           btnIcon=""
           btnLabel="LIBERAR ACESSO AGORA"
-          timerValue="01:42"
+          timerValue="02:12"
         />
         {/* <Player store='vsl' showBtn='01:42' btnLabel='LIBERAR ACESSO AGORA' btnW='w-full' moldura={true} src="/vsl.mp4" link='/saque' /> */}
       </main>
