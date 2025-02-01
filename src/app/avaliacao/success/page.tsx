@@ -13,10 +13,10 @@ export default function SuccessAv() {
           Seu cadastro foi realizado e você acaba de ganhar R$ 235,67
         </p>
         <p className='px-4 text-white md:text-2xl'>
-          Assista um curto vídeo com um passo a passo explicativo para você aprender a realizar o seu primeiro <b>SAQUE</b>
+          Realize seu saque teste antes de receber todo seu dinheiro <b>SAQUE</b>
         </p>
         <Link href={'/saque'}>
-          <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>ASSISTIR VÍDEO</button>
+          <button className='bg-white px-8 py-2 rounded-full font-bold text-2xl text-primary transition-all animate-pulse hover:scale-105'>FAZER SAQUE TESTE</button>
         </Link>
       </div>
       <BottomNav />
